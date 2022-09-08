@@ -7,12 +7,12 @@ import pickle
 
 r_alphabet = re.compile(u'[а-яА-Яa-zA-Z]+')
 
-# Реализация консольного интерфейса
+# Реализация консольного интерфейса:
 
 
 def deal_with_console():
     """
-    Аргументы для запуска из консоли
+    Считывание аргументов из консоли
     :return: доступ к ним
     """
     parser = argparse.ArgumentParser(description='Создание модели текста.',
@@ -29,12 +29,12 @@ def deal_with_console():
 
     return parser.parse_args()
 
-# Генерация строк из stdin
+# Введение строк из stdin:
 
 
 def gen_lines_from_stdin(args):
     """
-    Генератор строк из текста, введённого из stdin(консоли).
+    Получение строк из текста, введённого из stdin(консоли).
     Приведение к lowercase.
     :param args: то, что ввели в консоли
     :return: строки
@@ -42,12 +42,12 @@ def gen_lines_from_stdin(args):
     for line in sys.stdin:
         yield line.lower()
 
-# Генерация строк из файлов в директории
+# Получение строк из файлов в директории:
 
 
 def gen_lines_from_directory(args):
     """
-    Генератор строк из файлов, которые находятся
+    Получение строк из файлов, которые находятся
     в указанной пользователем директории.
     Приведение к lowercase.
     :param args: то, что ввели в консоли
@@ -59,19 +59,19 @@ def gen_lines_from_directory(args):
         for line in f:
             yield line.lower()
 
-# Очистить текст: выкинуть неалфавитные символы
+# Очистить текст: выкинуть неалфавитные символы. Токенизация:
 
 
 def gen_tokens(lines):
     """
     :rtype: gen_tokens
-    Генератор, возвращает "очищенные" от неалфавитных символов слова из строк
+    Возвращает очищенные от неалфавитных символов слова из строк
     """
     for line in lines:
         for token in r_alphabet.findall(line):
             yield token
 
-# Сгенерировать пары слов
+# Сгенерировать биграммы:
 
 
 def gen_bigrams(tokens):
@@ -86,7 +86,7 @@ def gen_bigrams(tokens):
             yield t1, t2
         t1 = t2
 
-# Создание модели
+# Создание модели:
 
 
 def train_itself():
@@ -122,7 +122,7 @@ def train_itself():
 
     pickle.dump(model, g)
 
-# Вызов функций
+# Вызов функций:
 
 
 if __name__ == '__main__':
