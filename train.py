@@ -7,8 +7,7 @@ import pickle
 
 r_alphabet = re.compile(u'[а-яА-Яa-zA-Z]+')
 
-# ########################################
-# КОНСОЛЬНОЕ ВЗАИМОДЕЙСТВИЕ
+# Реализация консольного интерфейса
 
 
 def deal_with_console():
@@ -19,8 +18,10 @@ def deal_with_console():
     parser = argparse.ArgumentParser(description='Создание модели текста.',
                                      prog='train', fromfile_prefix_chars='@')
     parser.add_argument('--input', '--input-dir', action='store',
-                        help='Путь к директории, в которой лежит коллекция документов. '
-                        'Если данный аргумент не задан, считается, что тексты вводятся из stdin.',
+                        help='Путь к директории, в которой лежит'
+                        'коллекция документов. '
+                        'Если данный аргумент не задан, считается, '
+                        'что тексты вводятся из stdin.',
                         default=False)
     parser.add_argument('--model', action='store',
                         help='Путь к файлу, в который сохраняется модель.',
@@ -28,8 +29,7 @@ def deal_with_console():
 
     return parser.parse_args()
 
-# ########################################
-# GENERATOR OF LINES FROM STDIN
+# Генерация строк из stdin
 
 
 def gen_lines_from_stdin(args):
@@ -40,10 +40,10 @@ def gen_lines_from_stdin(args):
     :return: строки
     """
     for line in sys.stdin:
-            yield line.lower()
+        yield line.lower()
 
-# ########################################
-# GENERATOR OF LINES FROM DIRECTORY
+# Генерация строк из файлов в директории
+
 
 def gen_lines_from_directory(args):
     """
@@ -57,10 +57,10 @@ def gen_lines_from_directory(args):
     for file in directory:
         f = open(os.path.join(args.input, file), 'r')
         for line in f:
-                yield line.lower()
+            yield line.lower()
 
-# ########################################
-# GENERATOR OF CLEAR WORDS
+# Очистить текст: выкинуть неалфавитные символы
+
 
 def gen_tokens(lines):
     """
@@ -71,8 +71,7 @@ def gen_tokens(lines):
         for token in r_alphabet.findall(line):
             yield token
 
-# ########################################
-# GENERATOR OF WORD PAIRS
+# Сгенерировать пары слов
 
 
 def gen_bigrams(tokens):
@@ -87,8 +86,7 @@ def gen_bigrams(tokens):
             yield t1, t2
         t1 = t2
 
-# ########################################
-# MODEL CREATING
+# Создание модели
 
 
 def train_itself():
@@ -100,7 +98,9 @@ def train_itself():
     """
     args = deal_with_console()
     if not args.model:
-        print('Пожалуйста, запустите программу ещё раз и укажите название файла, в который нужно сохранить модель')
+        print('Пожалуйста, запустите программу ещё раз '
+              'и укажите название файла, в который '
+              'нужно сохранить модель')
         sys.exit()
 
     g = open(args.model, 'wb')
@@ -122,9 +122,8 @@ def train_itself():
 
     pickle.dump(model, g)
 
+# Вызов функций
 
-# ########################################
-# CALL OF FUNCTIONS
 
 if __name__ == '__main__':
     train_itself()

@@ -13,7 +13,8 @@ def deal_with_console():
     :return: доступ к ним
     """
     parser = argparse.ArgumentParser(description='Генерация текст',
-                                     prog='generate', fromfile_prefix_chars='@')
+                                     prog='generate',
+                                     fromfile_prefix_chars='@')
     parser.add_argument('--length', action='store',
                         help='Длина генерируемой последовательности',
                         default=False)
@@ -21,7 +22,8 @@ def deal_with_console():
                         help='Путь к файлу, из которого загружается модель',
                         default=False)
     parser.add_argument('--prefix', action='store', default=False,
-                        help='Начало предложения (одно слово). Если не указано, выбираем '
+                        help='Начало предложения (одно слово). '
+                        'Если не указано, выбираем '
                              'случайно из всех слов')
     parser.add_argument('--output', action='store', default=False,
                         help='Файл, в который будет записан результат. '
