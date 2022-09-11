@@ -11,7 +11,7 @@ def deal_with_console():
     Считывание аргументов из консоли
     :return: доступ к ним
     """
-    parser = argparse.ArgumentParser(description='Генерация текст',
+    parser = argparse.ArgumentParser(description='Генерация текста',
                                      prog='generate',
                                      fromfile_prefix_chars='@')
     parser.add_argument('--length', action='store',
