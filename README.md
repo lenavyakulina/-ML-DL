@@ -3,7 +3,6 @@
 
 
 train.py:
-
 Создаёт модель текста.
 Запускается командой: python3 train.py --model ... --input-dir ...
 
